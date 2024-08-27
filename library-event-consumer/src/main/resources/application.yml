@@ -1,0 +1,52 @@
+spring:
+  kafka:
+    template:
+      default-topic: libraryEvents
+    consumer:
+      bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: libraryEvents-listener-group
+    producer:
+      bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-Serializer: org.apache.kafka.common.serialization.StringSerializer
+  #      properties:
+#        retries: 10
+  profiles:
+    default: local
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+  h2:
+    console:
+      enabled: true
+server:
+  port: 8081
+
+topics:
+  retry: "libraryEvents.RETRY"
+  dlt: "libraryEvents.DLT"
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  kafka:
+    consumer:
+      bootstrap-servers: dev:9092
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  kafka:
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
