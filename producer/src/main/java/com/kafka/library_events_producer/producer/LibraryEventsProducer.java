@@ -1,6 +1,5 @@
 package com.kafka.library_events_producer.producer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kafka.library_events_producer.dto.LibraryEvent;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 @Slf4j
 @Component
@@ -31,7 +28,7 @@ public class LibraryEventsProducer {
     private final KafkaTemplate<Integer, String> kafkaTemplate;
 
     //async call
-    public CompletableFuture<SendResult<Integer, String>> sendLibraryEvent(LibraryEvent libraryEvent) throws JsonProcessingException {
+    public CompletableFuture<SendResult<Integer, String>> sendLibraryEvent(LibraryEvent libraryEvent) {
         Integer key = libraryEvent.libraryEventId();
         String value = new ObjectMapper().writeValueAsString(libraryEvent);
 
@@ -45,7 +42,7 @@ public class LibraryEventsProducer {
     }
 
     //sync call
-    public SendResult sendLibraryEvent_2ndApproach(LibraryEvent libraryEvent) throws JsonProcessingException, ExecutionException, InterruptedException, TimeoutException {
+    public SendResult sendLibraryEvent_2ndApproach(LibraryEvent libraryEvent) {
         Integer key = libraryEvent.libraryEventId();
         String value = new ObjectMapper().writeValueAsString(libraryEvent);
 
@@ -57,7 +54,7 @@ public class LibraryEventsProducer {
     }
 
     //async call
-    public CompletableFuture sendLibraryEvent_3rdApproach(LibraryEvent libraryEvent) throws JsonProcessingException {
+    public CompletableFuture sendLibraryEvent_3rdApproach(LibraryEvent libraryEvent) {
         Integer key = libraryEvent.libraryEventId();
         String value = new ObjectMapper().writeValueAsString(libraryEvent);
 

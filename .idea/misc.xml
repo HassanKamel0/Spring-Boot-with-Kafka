@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/consumer" />
     <file type="web" url="file://$PROJECT_DIR$/library-event-consumer" />
     <file type="web" url="file://$PROJECT_DIR$/library-events-producer" />
+    <file type="web" url="file://$PROJECT_DIR$/producer" />
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" project-jdk-name="temurin-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
